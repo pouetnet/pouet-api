@@ -1,4 +1,3 @@
-Pouët 2.0 API
-=============
+# Pouët API
 
 Trumpets for everyone!

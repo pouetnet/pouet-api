@@ -1,8 +1,15 @@
 RewriteEngine on
 
+#RewriteCond %{REMOTE_ADDR} ^46\.19\.152\.220$
+#RewriteRule .* - [F]
+
+# Deny From 46.19.152.220
+# RewriteRule .* http://content.pouet.net/maintenance.html [R=302,L]
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . _rewrite.php [env=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
+RewriteRule . _rewrite.php [env=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]  
 
 <IfModule mod_headers.c>
   Header always set Access-Control-Allow-Origin "*"
