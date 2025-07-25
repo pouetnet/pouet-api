@@ -15,7 +15,7 @@ if ($terms)
     $s->AddWhere(sprintf_esc("prods.name LIKE '%%%s%%'",_like($term)));
   $prods = $s->perform();
 }
-if($prods)
+if(@$prods)
 {
   PouetCollectPlatforms( $prods );
   PouetCollectAwards( $prods );
@@ -28,7 +28,7 @@ if($prods)
 }
 
 $result = new stdClass();
-if ($prod)
+if (@$prod)
 {
   $result->success = true;
   $result->results = $prods;
