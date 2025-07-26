@@ -16,7 +16,7 @@ if ($terms)
 }
 
 $result = new stdClass();
-if ($parties)
+if (@$parties)
 {
   $result->success = true;
   $result->results = $parties;
