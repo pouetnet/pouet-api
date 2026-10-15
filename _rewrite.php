@@ -53,6 +53,8 @@ $r->addRules(array(
 
   "^\/+v1\/stats\/?$" => "v1_stats.php",
 
+  "^\/+v1\/gloperator-log\/?$" => "v1_gloperator_log.php",
+
   "^\/+v1\/front\-page\/latest\-added\/?$" => "v1_frontpage_latestadded.php",
   "^\/+v1\/front\-page\/latest\-released\/?$" => "v1_frontpage_latestreleased.php",
   "^\/+v1\/front\-page\/alltime\-top\/?$" => "v1_frontpage_alltimetop.php",
