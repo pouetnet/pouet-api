@@ -1,0 +1,14 @@
+# php -l on PHP 8.2, shared with the other site repos: see
+# https://github.com/pouetnet/pouet-www/blob/master/.github/workflows/php-linter.yaml
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    uses: pouetnet/pouet-www/.github/workflows/php-linter.yaml@master
