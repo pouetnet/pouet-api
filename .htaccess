@@ -14,3 +14,6 @@ RewriteRule . _rewrite.php [env=HTTP_AUTHORIZATION:%{HTTP:Authorization},L]
 <IfModule mod_headers.c>
   Header always set Access-Control-Allow-Origin "*"
 </IfModule>
+
+# Repo files and include-only PHP, never served directly
+RedirectMatch 404 (?i)^/(README\.md|LICENSE|config\.inc\.php\.dist|functions\.inc\.php)$
