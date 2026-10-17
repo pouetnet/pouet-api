@@ -26,7 +26,7 @@ just setup
 
 This clones this repo and the other site repos under `sites/`, starts
 everything and loads sample data. The API is then on
-<http://localhost:8081>. pouet-infra's `ARCHITECTURE.md` describes how it
+<http://api.pouet.localhost>. pouet-infra's `ARCHITECTURE.md` describes how it
 runs in production.
 
 ## Contributing
