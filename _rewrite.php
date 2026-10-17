@@ -29,7 +29,7 @@ if ($ephemeralStorage && defined("POUETAPI_RATELIMIT_TIMEFRAME") && defined("POU
     $rateLimit["start"] = time();
     $rateLimit["hits"] = 0;
   }
-  $ephemeralStorage->set($key, $rateLimit);
+  $ephemeralStorage->set($key, $rateLimit, POUETAPI_RATELIMIT_TIMEFRAME);
 }
 
 // render
