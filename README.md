@@ -26,10 +26,14 @@ just setup
 
 This clones this repo and the other site repos under `sites/`, starts
 everything and loads sample data. The API is then on
-<http://localhost:8081>. pouet-infra's `ARCHITECTURE.md` describes how it
+<http://api.pouet.localhost>. pouet-infra's `ARCHITECTURE.md` describes how it
 runs in production.
 
 ## Contributing
 
 Open a pull request against `master`. PRs are squash-merged once CI
 passes, and a merged PR is live on api.pouet.net within a minute.
+
+PHP follows [PER Coding Style 3.0](https://www.php-fig.org/per/coding-style/).
+CI flags style issues without blocking the merge; `php-cs-fixer fix`
+(3.95.27) fixes them.

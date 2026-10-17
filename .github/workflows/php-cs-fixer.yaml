@@ -1,0 +1,14 @@
+# PER-CS style check (advisory), shared with the other site repos: see
+# https://github.com/pouetnet/pouet-www/blob/master/.github/workflows/php-cs-fixer.yaml
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  style:
+    uses: pouetnet/pouet-www/.github/workflows/php-cs-fixer.yaml@master
