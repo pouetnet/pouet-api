@@ -1,4 +1,4 @@
-<?
+<?php
 define("POUETAPI_POUET_ROOT_LOCAL","/var/www/pouet/");
 define("POUETAPI_RATELIMIT_TIMEFRAME",60);
 define("POUETAPI_RATELIMIT_REQUESTCOUNT",15);
