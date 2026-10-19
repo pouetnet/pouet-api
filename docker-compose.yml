@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pouet
+      MYSQL_USER: pouet
+      MYSQL_PASSWORD: pouet
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    ports:
+      - "3307:3306"
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      POUET_WWW_PATH: /var/www/pouet
+      POUET_API_PATH: /var/www/pouet-api
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: pouet
+      MYSQL_USER: pouet
+      MYSQL_PASSWORD: pouet
+      REDIS_HOST: redis
+      IMPORT_DATA: "1"
+      SITE_HOST: localhost
+      SITE_PORT: "8090"
+    volumes:
+      - ${POUET_WWW_PATH:-../pouet-www}:/var/www/pouet
+      - .:/var/www/pouet-api
+    ports:
+      - "8090:80"
+
+volumes:
+  mysql_data:
