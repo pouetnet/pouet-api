@@ -27,10 +27,32 @@ if (is_string($letter) && $letter !== "") {
         $s->AddWhere("parties.name regexp '^[^a-z]'");
     }
 }
-$s->AddOrder("parties.name ASC");
 $s->AddOrder("parties.id ASC");
 $s->SetLimit($limit, $offset);
-$parties = $s->performWithCalcRows($total);
+$parties = array_values($s->performWithCalcRows($total));
+
+// collect the years a party took place in; same sources as the party page:
+// prods as primary party, prods as invitation, and prods as secondary party
+$partyYears = [];
+if ($parties) {
+    $ids = [];
+    foreach ($parties as $party) {
+        $ids[] = (int) $party->id;
+    }
+    $idList = implode(",", $ids);
+
+    $rows = SQLLib::selectRows(sprintf(
+        "SELECT party, party_year FROM `prods` WHERE party IN (%s) AND party_year > 0"
+        . " UNION SELECT party, party_year FROM `prodotherparty` WHERE party IN (%s) AND party_year > 0"
+        . " UNION SELECT invitation AS party, invitationyear AS party_year FROM `prods` WHERE invitation IN (%s) AND invitationyear > 0",
+        $idList,
+        $idList,
+        $idList,
+    ));
+    foreach ($rows as $row) {
+        $partyYears[(int) $row->party][] = (int) $row->party_year;
+    }
+}
 
 $result = new stdClass();
 if ($parties) {
@@ -38,7 +60,20 @@ if ($parties) {
     $result->total = (int) $total;
     $result->limit = $limit;
     $result->offset = $offset;
-    $result->results = array_values($parties);
+    $result->results = [];
+    foreach ($parties as $party) {
+        $id = (int) $party->id;
+        $years = array_values(array_unique($partyYears[$id] ?? []));
+        sort($years);
+        $result->results[] = [
+            "id" => $party->id,
+            "name" => $party->name,
+            "web" => $party->web,
+            "addedDate" => $party->addedDate,
+            "addedUser" => $party->addedUser,
+            "years" => $years,
+        ];
+    }
 } else {
     $result->error = true;
 }
