@@ -18,6 +18,7 @@ if ($offset < 0) {
 }
 
 $s = new BM_Query("parties");
+$s->addExtendedFields();
 $letter = @$_GET["letter"];
 if (is_string($letter) && $letter !== "") {
     $letter = substr($letter, 0, 1);
