@@ -17,7 +17,6 @@ $s->AddField("oneliner.id");
 $s->AddField("oneliner.message");
 $s->AddField("oneliner.addedDate");
 $s->Attach(["oneliner" => "who"], ["users as user" => "id"]);
-$s->AddOrder("oneliner.addedDate DESC");
 $s->AddOrder("oneliner.id DESC");
 $s->SetLimit($limit);
 $oneliners = $s->perform();
