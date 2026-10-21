@@ -29,6 +29,37 @@ everything and loads sample data. The API is then on
 <http://api.pouet.localhost>. pouet-infra's `ARCHITECTURE.md` describes how it
 runs in production.
 
+### Running with Docker (without pouet-infra)
+
+If you don't have access to pouet-infra, you can run the API locally with
+the provided Docker Compose setup. It uses a public
+[pouet-www](https://github.com/pouetnet/pouet-www) checkout and loads
+sample data from <https://data.pouet.net/>.
+
+Prerequisites: Docker + Docker Compose.
+
+```sh
+# 1. Clone pouet-www next to this repo (if not already)
+git clone https://github.com/pouetnet/pouet-www.git ../pouet-www
+
+# 2. Adjust the path in docker-compose.yml / .env if needed
+cp .env.example .env
+
+# 3. Start
+docker compose up --build
+```
+
+The API is then on <http://localhost:8090>. On first start the container
+downloads the latest data dump from data.pouet.net and imports it (set
+`IMPORT_DATA=0` to skip).
+
+Notes:
+- `POUET_WWW_PATH` (default `../pouet-www`) must point at your
+  pouet-www checkout.
+- MySQL is exposed on port 3307 (user `pouet` / pass `pouet`, db `pouet`).
+- The importer is best-effort: endpoints that need tables without a public
+  dump (comments, awards, ...) stay empty.
+
 ## Contributing
 
 Open a pull request against `master`. PRs are squash-merged once CI
