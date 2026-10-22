@@ -24,7 +24,13 @@ $oneliners = $s->perform();
 $result = new stdClass();
 if ($oneliners) {
     $result->success = true;
-    $result->oneliners = array_values($oneliners);
+    $oneliners = array_values($oneliners);
+    foreach ($oneliners as $o) {
+        if (isset($o->user) && $o->user) {
+            $o->user = $o->user->ToAPI();
+        }
+    }
+    $result->oneliners = $oneliners;
 } else {
     $result->error = true;
 }
