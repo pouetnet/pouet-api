@@ -50,6 +50,8 @@ $r->addRules([
 
     "^\/+v1\/lists\/?$" => "v1_lists.php",
 
+    "^\/+v1\/oneliner\/?$" => "v1_oneliner.php",
+
     "^\/+v1\/stats\/?$" => "v1_stats.php",
 
     "^\/+v1\/front\-page\/latest\-added\/?$" => "v1_frontpage_latestadded.php",
